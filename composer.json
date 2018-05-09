@@ -1,0 +1,14 @@
+{
+    "name": "monzey/levav",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "monzey",
+            "email": "maxi.bertrand@gmail.com"
+        }
+    ],
+    "require": {
+        "cboden/ratchet": "^0.4.1"
+    }
+}
