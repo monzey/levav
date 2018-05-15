@@ -6,7 +6,7 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Url;
 
-use Levav\Router;
+use Levav\ResourceRouter;
 
 class App extends Micro 
 {
@@ -36,7 +36,7 @@ class App extends Micro
 
     private function registerRoutes()
     {
-        $router = new Router();
+        $router = new ResourceRouter();
 
         foreach ($router->getRoutes() as $collection) {
             $this->mount($collection);

@@ -2,7 +2,7 @@
 
 namespace Levav\Controller;
 
-class PersonsController
+class PersonController
 {
     public function cGetAction()
     {

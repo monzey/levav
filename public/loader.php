@@ -13,6 +13,7 @@ $loader->registerFiles(
 $loader->registerNamespaces(
     [
         'Levav\Controller' => 'src/controllers',
+        'Levav\Resource' => 'src/resources',
         'Levav' => 'src/'
     ]
 );
