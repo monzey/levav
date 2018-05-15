@@ -3,9 +3,10 @@
 namespace Levav;
 
 use Phalcon\Mvc\Micro;
-use Phalcon\Di\FactoryDefault;
+use Phalcon\Di\FactoryDefault as DiFactory;
 use Phalcon\Mvc\Url;
 use Phalcon\Config;
+use Phalcon\Db\Adapter\Pdo\Factory as PdoFactory;
 
 use Levav\ResourceRouter;
 
@@ -27,7 +28,9 @@ class App extends Micro
 
     private function registerDi()
     {
-        $this->di = new FactoryDefault();
+        $self = $this;
+
+        $this->di = new DiFactory();
 
         $this->di->set('url', function() {
             $url = new Url();
@@ -37,9 +40,11 @@ class App extends Micro
         });
 
         $this->di->set('config', function() {
-            $config = require 'config.php';
+            return new Config(require 'config.php');
+        });
 
-            return new Config($config);
+        $this->di->set('db', function() use ($self) {
+            return PdoFactory::load($self->config->database);
         });
     }
 

@@ -2,9 +2,10 @@
 
 return [
     'database' => [
-        'adapter' => 'Mysql',
+        'adapter' => 'mysql',
         'host' => 'localhost',
         'username' => 'root',
+        'port' => 3306,
         'password' => 'nub',
         'dbname' => 'levav',
     ]
