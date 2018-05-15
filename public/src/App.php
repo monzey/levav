@@ -6,6 +6,8 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Url;
 
+use Levav\Router;
+
 class App extends Micro 
 {
     /**
@@ -15,7 +17,7 @@ class App extends Micro
     {
         parent::__construct($this->configureDi());
 
-        $this->configureRoutes();
+        $this->registerRoutes();
     }
 
     private function configureDi()
@@ -32,17 +34,23 @@ class App extends Micro
         return $di;
     }
 
-    private function configureRoutes()
+    private function registerRoutes()
     {
-        $this->get(
-          '/members',
-          function () {
-            echo("home");
-          }
-        );
+        $router = new Router();
 
-        $this->notFound(function () {
-          echo 'Not found.';
+        foreach ($router->getRoutes() as $collection) {
+            $this->mount($collection);
+        }
+
+        // not fond handler
+        $self = $this;
+
+        $this->notFound(function () use ($self) {
+            $self->response->setStatusCode(404, 'Not Found');
+            $self->response->sendHeaders();
+
+            $self->response->setContent('Not Found');
+            $self->response->send();
         });
     }
 }
