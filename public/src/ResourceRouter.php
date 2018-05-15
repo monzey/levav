@@ -6,7 +6,6 @@ use Phalcon\Mvc\Micro\Collection;
 
 use Levav\Controller\PersonsController;
 use Levav\Resource\Resource;
-use Levav\Resource\Person as PersonResource;
 
 /**
  * Loads routes based on resources defined by Levav\Resource\Resource
@@ -66,7 +65,7 @@ class ResourceRouter
     private function registerResources()
     {
         $this->resources = [
-            new PersonResource()
+            new \Levav\Resource\Person()
         ];
     }
 }

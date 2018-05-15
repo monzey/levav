@@ -5,33 +5,42 @@ namespace Levav;
 use Phalcon\Mvc\Micro;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Url;
+use Phalcon\Config;
 
 use Levav\ResourceRouter;
 
 class App extends Micro 
 {
+    protected $di;
+
     /**
      * @param mixed 
      */
     public function __construct()
     {
-        parent::__construct($this->configureDi());
+        $this->registerDi();
+
+        parent::__construct($this->di);
 
         $this->registerRoutes();
     }
 
-    private function configureDi()
+    private function registerDi()
     {
-        $di = new FactoryDefault();
+        $this->di = new FactoryDefault();
 
-        $di->set('url', function() {
+        $this->di->set('url', function() {
             $url = new Url();
             $url->setBaseUri('/api');
 
             return $url;
         });
 
-        return $di;
+        $this->di->set('config', function() {
+            $config = require 'config.php';
+
+            return new Config($config);
+        });
     }
 
     private function registerRoutes()
@@ -42,7 +51,7 @@ class App extends Micro
             $this->mount($collection);
         }
 
-        // not fond handler
+        // not found handler
         $self = $this;
 
         $this->notFound(function () use ($self) {

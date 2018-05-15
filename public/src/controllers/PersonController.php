@@ -2,7 +2,9 @@
 
 namespace Levav\Controller;
 
-class PersonController
+use Phalcon\Mvc\Controller;
+
+class PersonController extends Controller
 {
     public function cGetAction()
     {
