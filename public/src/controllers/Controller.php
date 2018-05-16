@@ -7,11 +7,11 @@ use Phalcon\Mvc\Controller as PhalconController;
 abstract class Controller extends PhalconController
 {
     abstract public function cGetAction();
-    abstract public function getAction();
-    abstract public function putAction();
-    abstract public function patchAction();
+    abstract public function getAction(int $id);
+    abstract public function putAction(int $id);
+    abstract public function patchAction(int $id);
     abstract public function postAction();
-    abstract public function deleteAction();
+    abstract public function deleteAction(int $id);
 
     public function optionsAction()
     {

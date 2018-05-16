@@ -9,6 +9,7 @@ use Phalcon\Config;
 use Phalcon\Db\Adapter\Pdo\Factory as PdoFactory;
 
 use Levav\ResourceRouter;
+use Levav\Serializer;
 
 class App extends Micro 
 {
@@ -45,6 +46,10 @@ class App extends Micro
 
         $this->di->set('db', function() use ($self) {
             return PdoFactory::load($self->config->database);
+        });
+
+        $this->di->set('serializer', function() {
+            return new Serializer();
         });
     }
 

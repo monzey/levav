@@ -9,34 +9,30 @@ class PersonController extends Controller
 {
     public function cGetAction()
     {
-        $persons = Person::find();
-
-        $count = count($persons);
-
-        return "${count} persons";
+        return $this->serializer->serialize(Person::find());
     }
 
-    public function getAction()
+    public function getAction(int $id)
     {
         
     }
 
-    public function putAction()
+    public function putAction(int $id)
     {
         
     }
 
-    public function patchAction()
+    public function patchAction(int $id)
     {
         
     }
 
     public function postAction()
     {
-        
+        var_dump($this->request);
     }
 
-    public function deleteAction()
+    public function deleteAction(int $id)
     {
         
     }

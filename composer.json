@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "cboden/ratchet": "^0.4.1"
+        "php": ">=7.2",
+        "json-api-php/json-api": "^2.0"
     }
 }
