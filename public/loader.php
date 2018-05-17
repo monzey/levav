@@ -15,6 +15,7 @@ $loader->registerNamespaces(
         'Levav\Controller' => 'src/controllers',
         'Levav\Resource' => 'src/resources',
         'Levav\Model' => 'src/model',
+        'Levav\Model\Serializer' => 'src/model/serializers',
         'Levav' => 'src/'
     ]
 );

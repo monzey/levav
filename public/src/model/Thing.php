@@ -9,7 +9,7 @@ class Thing extends Model
     /**
      * @var integer
      */
-    protected $id;
+    public $id;
 
     /**
      * @var string

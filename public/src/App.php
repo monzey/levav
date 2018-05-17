@@ -47,10 +47,6 @@ class App extends Micro
         $this->di->set('db', function() use ($self) {
             return PdoFactory::load($self->config->database);
         });
-
-        $this->di->set('serializer', function() {
-            return new Serializer();
-        });
     }
 
     private function registerRoutes()
