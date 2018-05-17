@@ -32,12 +32,16 @@ abstract class Controller extends PhalconController
         } elseif ($data instanceof SerializableInterface) {
             $documentData = new Resource($data, $serializer); 
         } else {
-            return json_encode(new Document());
+            return json_encode(new Document(), JSON_PRETTY_PRINT);
         }
 
         $documentData->with($relationships);
 
-        return json_encode(new Document($documentData));
+        if ($json = json_encode(new Document($documentData))) {
+            return $json;
+        } else {
+            throw new \Exception(sprintf('An error has occured during serialization : %s', json_last_error_msg()));
+        }
     }
 
     public function cGetAction()
