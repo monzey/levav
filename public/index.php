@@ -1,9 +1,9 @@
 <?php
 
-require('loader.php');
+require('../app/autoload.php');
 
-use Levav\App;
+use Levav\Kernel;
 
-$app = new App();
+$app = new Kernel();
 
 $app->handle();

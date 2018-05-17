@@ -11,7 +11,7 @@ use Phalcon\Db\Adapter\Pdo\Factory as PdoFactory;
 use Levav\ResourceRouter;
 use Levav\Serializer;
 
-class App extends Micro 
+class Kernel extends Micro 
 {
     protected $di;
 
@@ -41,7 +41,7 @@ class App extends Micro
         });
 
         $this->di->set('config', function() {
-            return new Config(require 'config.php');
+            return new Config(require __DIR__ . '/../config.php');
         });
 
         $this->di->set('db', function() use ($self) {
