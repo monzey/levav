@@ -51,7 +51,7 @@ abstract class Controller extends PhalconController
     {
         $resource = $this->getModel()::findFirst($id);
 
-        return $this->renderSerialized($resources);
+        return $this->renderSerialized($resource);
     }
 
     public function putAction(int $id) 
@@ -60,7 +60,7 @@ abstract class Controller extends PhalconController
 
         $resource = $this->getModel()::findFirst($id);
 
-        return json_encode(new Document(new Resource($resource, $this->getModel()->getSerializer())));
+        return $this->renderSerialized($resource);
     }
 
     public function patchAction(int $id)
@@ -69,7 +69,7 @@ abstract class Controller extends PhalconController
 
         $resource = $this->getModel()::findFirst($id);
 
-        return json_encode(new Document(new Resource($resource, $this->getModel()->getSerializer())));
+        return $this->renderSerialized($resource);
     }
 
     public function postAction()
