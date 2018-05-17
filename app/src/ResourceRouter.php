@@ -46,10 +46,10 @@ class ResourceRouter
             $resourcePluralName = $resource->getPluralName();
             $resourceName = $resource->getName();
 
-            $controllerName = 'Levav\Controller\\' . ucfirst($resourceName) . 'Controller';
+            $controllerName = 'Levav\Controller\\' . (new \ReflectionClass($resource))->getShortName() . 'Controller';
 
             $controller = new $controllerName();
-            $controller->resourceName = ucfirst($resourceName);
+            $controller->setResource($resource);
 
             $collection->setHandler($controller);
             $collection->setPrefix("/{$resourcePluralName}");

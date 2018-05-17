@@ -6,7 +6,7 @@ use Tobscure\JsonApi\Resource;
 use Tobscure\JsonApi\Collection;
 use Tobscure\JsonApi\Relationship;
 
-use Levav\Model\Place;
+use Levav\Resource\Place;
 use Levav\Model\Serializer\AbstractSerializer;
 
 class PersonSerializer extends AbstractSerializer

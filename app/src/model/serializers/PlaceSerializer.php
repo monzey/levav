@@ -6,7 +6,7 @@ use Tobscure\JsonApi\Resource;
 use Tobscure\JsonApi\Relationship;
 
 use Levav\Model\Serializer\AbstractSerializer;
-use Levav\Model\PostalAddress;
+use Levav\Resource\PostalAddress;
 
 class PlaceSerializer extends AbstractSerializer
 {

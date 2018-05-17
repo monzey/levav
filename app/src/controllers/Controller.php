@@ -2,34 +2,39 @@
 
 namespace Levav\Controller;
 
-use Phalcon\Mvc\Controller as PhalconController;
+use Phalcon\Mvc\Controller as BaseController;
+use Phalcon\Mvc\Model;
 use Tobscure\JsonApi\Document;
 use Tobscure\JsonApi\Collection;
 use Tobscure\JsonApi\Resource;
 
-use Levav\Model\SerializableInterface;
-
-abstract class Controller extends PhalconController
+abstract class Controller extends BaseController
 {
-    public $resourceName;
+    public $resource;
 
-    protected function getModel()
+    /**
+     * Setter for resourceClassName
+     *
+     * @param string $resourceClassName
+     * @return Controller
+     */
+    public function setResource($resource)
     {
-        $modelClassName = 'Levav\Model\\' . $this->resourceName;
-
-        return new $modelClassName();
+        $this->resource = $resource;
+    
+        return $this;
     }
 
     protected function renderSerialized($data)
     {
         $documentData;
-        $serializer = $this->getModel()->getSerializer();
+        $serializer = $this->resource->getSerializer();
         $relationships = $serializer->getDefaultRelationships();
         // @todo récupérer les relationships passées par la request
 
         if ($data instanceof \ArrayAccess) {
             $documentData = new Collection($data, $serializer); 
-        } elseif ($data instanceof SerializableInterface) {
+        } elseif ($data instanceof Model) {
             $documentData = new Resource($data, $serializer); 
         } else {
             return json_encode(new Document(), JSON_PRETTY_PRINT);
@@ -46,14 +51,14 @@ abstract class Controller extends PhalconController
 
     public function cGetAction()
     {
-        $resources = $this->getModel()::find();
+        $resources = $this->resource->getModel()::find();
 
         return $this->renderSerialized($resources);
     }
 
     public function getAction(int $id)
     {
-        $resource = $this->getModel()::findFirst($id);
+        $resource = $this->resource->getModel()::findFirst($id);
 
         return $this->renderSerialized($resource);
     }
@@ -78,7 +83,10 @@ abstract class Controller extends PhalconController
 
     public function postAction()
     {
+        $this->resource->bind($this->request);
+        $this->resource->save();
 
+        return $this->renderSerialized($this->resource->getModel());
     }
 
     public function deleteAction(int $id)

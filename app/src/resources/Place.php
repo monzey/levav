@@ -6,12 +6,12 @@ use Levav\Resource\Resource;
 
 class Place extends Resource
 {
-    public function getName()
+    public function getName(): string
     {
         return 'place';
     }
 
-    public function getPluralName()
+    public function getPluralName(): string
     {
         return 'places';
     }

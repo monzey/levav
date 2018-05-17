@@ -11,11 +11,4 @@ use Levav\Model\Serializer\AbstractSerializer as Serializer;
  */
 trait Serializable 
 {
-    public function getSerializer(): Serializer
-    {
-        $serializerClassName = 'Levav\Model\Serializer\\' . (new \ReflectionClass($this))->getShortName() . 'Serializer';
-
-        return new $serializerClassName();
-    }
-
 }

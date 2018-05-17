@@ -6,5 +6,5 @@ use Levav\Model\Serializer\AbstractSerializer as Serializer;
 
 interface SerializableInterface
 {
-    public function getSerializer(): Serializer;
+    public static function createSerializer(): Serializer;
 }

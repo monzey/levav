@@ -4,15 +4,15 @@ namespace Levav\Resource;
 
 use Levav\Resource\Resource;
 
-class Person extends Resource
+class PostalAddress extends Resource
 {
     public function getName(): string
     {
-        return 'person';
+        return 'postalAddress';
     }
 
     public function getPluralName(): string
     {
-        return 'persons';
+        return 'postalAddresses';
     }
 }
