@@ -5,8 +5,9 @@ namespace Levav\Model;
 use Phalcon\Mvc\Model;
 
 use Levav\Model\Serializable;
+use Levav\Model\SerializableInterface;
     
-class Thing extends Model
+class Thing extends Model implements SerializableInterface
 {
     use Serializable;
 

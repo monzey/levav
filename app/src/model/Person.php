@@ -10,6 +10,45 @@ class Person extends Thing
     protected $givenName;
     protected $gender;
 
+    protected $postalAddresses;
+
+    public function onConstruct()
+    {
+        $this->postalAddresses = [];
+    }
+
+    public function initialize()
+    {
+        $this->hasMany(
+            'id',
+            'Levav\Model\PostalAddress',
+            'postal_addresses'
+        );
+    }
+
+    /**
+     * Getter for postalAddresses
+     *
+     * @return string
+     */
+    public function getPostalAddresses()
+    {
+        return $this->postalAddresses;
+    }
+    
+    /**
+     * Setter for postalAddresses
+     *
+     * @param string $postalAddresses
+     * @return Person
+     */
+    public function setPostalAddresses($postalAddresses)
+    {
+        $this->postalAddresses = $postalAddresses;
+    
+        return $this;
+    }
+
     /**
      * Getter for gender
      *
