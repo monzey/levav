@@ -3,15 +3,12 @@
 namespace Levav\Model;
 
 use Phalcon\Mvc\Model;
+
+use Levav\Model\Serializable;
     
 class Thing extends Model
 {
-    public function getSerializer()
-    {
-        $serializerClassName = 'Levav\Model\Serializer\\' . (new \ReflectionClass($this))->getShortName() . 'Serializer';
-
-        return new $serializerClassName();
-    }
+    use Serializable;
 
     /**
      * @var integer
@@ -27,4 +24,50 @@ class Thing extends Model
      * @var string
      */
     protected $name;
+
+    /**
+     * Getter for name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    /**
+     * Setter for name
+     *
+     * @param string $name
+     * @return Thing
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Getter for description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * Setter for description
+     *
+     * @param string $description
+     * @return Thing
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
 }
