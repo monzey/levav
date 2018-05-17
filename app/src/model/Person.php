@@ -3,6 +3,7 @@
 namespace Levav\Model;
 
 use Levav\Model\Thing;
+use Levav\Model\Place;
 
 class Person extends Thing
 {
@@ -10,41 +11,68 @@ class Person extends Thing
     protected $givenName;
     protected $gender;
 
-    protected $postalAddresses;
+    protected $emails;
+    protected $telephones;
+    protected $homeLocation;
 
     public function onConstruct()
     {
-        $this->postalAddresses = [];
+        $this->emails = [];
+        $this->telephones = [];
     }
 
     public function initialize()
     {
-        $this->hasMany(
+        $this->hasOne(
+            'home_location',
+            Place::class,
             'id',
-            'Levav\Model\PostalAddress',
-            'postal_addresses'
+            [ 'alias' => 'homeLocation' ]
         );
     }
 
     /**
-     * Getter for postalAddresses
+     * Getter for telephones
      *
      * @return string
      */
-    public function getPostalAddresses()
+    public function getTelephones()
     {
-        return $this->postalAddresses;
+        return $this->telephones;
     }
     
     /**
-     * Setter for postalAddresses
+     * Setter for telephones
      *
-     * @param string $postalAddresses
+     * @param string $telephones
      * @return Person
      */
-    public function setPostalAddresses($postalAddresses)
+    public function setTelephones($telephones)
     {
-        $this->postalAddresses = $postalAddresses;
+        $this->telephones = $telephones;
+    
+        return $this;
+    }
+
+    /**
+     * Getter for emails
+     *
+     * @return string
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+    
+    /**
+     * Setter for emails
+     *
+     * @param string $emails
+     * @return Person
+     */
+    public function setEmails($emails)
+    {
+        $this->emails = $emails;
     
         return $this;
     }

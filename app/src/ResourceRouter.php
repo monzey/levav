@@ -68,7 +68,8 @@ class ResourceRouter
     private function registerResources()
     {
         $this->resources = [
-            new \Levav\Resource\Person()
+            new \Levav\Resource\Person(),
+            new \Levav\Resource\Place(),
         ];
     }
 }

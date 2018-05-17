@@ -2,10 +2,11 @@
 
 namespace Levav\Model\Serializer;
 
+use Tobscure\JsonApi\Resource;
 use Tobscure\JsonApi\Collection;
 use Tobscure\JsonApi\Relationship;
 
-use Levav\Model\PostalAddress;
+use Levav\Model\Place;
 use Levav\Model\Serializer\AbstractSerializer;
 
 class PersonSerializer extends AbstractSerializer
@@ -14,7 +15,7 @@ class PersonSerializer extends AbstractSerializer
 
     public function getDefaultRelationships(): array
     {
-        return [ 'postalAddresses' ];
+        return [ 'homeLocation', 'homeLocation.address' ];
     }
 
     public function getAttributes($person, array $fields = null)
@@ -26,8 +27,8 @@ class PersonSerializer extends AbstractSerializer
         ];
     }
 
-    public function postalAddresses($person)
+    public function homeLocation($person)
     {
-        return new Relationship(new Collection($person->getPostalAddresses(), (new PostalAddress())->getSerializer()));
+        return new Relationship(new Resource($person->getHomeLocation(), (new Place())->getSerializer()));
     }
 }
