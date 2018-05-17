@@ -11,13 +11,6 @@ abstract class Controller extends PhalconController
 {
     public $resourceName;
 
-    private function getSerializer()
-    {
-        $serializerClassName = 'Levav\Model\Serializer\\' . $this->resourceName . 'Serializer';
-
-        return new $serializerClassName();
-    }
-
     private function getModel()
     {
         $modelClassName = 'Levav\Model\\' . $this->resourceName;
@@ -29,14 +22,14 @@ abstract class Controller extends PhalconController
     {
         $resources = $this->getModel()::find();
 
-        return json_encode(new Document(new Collection($resources, $this->getSerializer())));
+        return json_encode(new Document(new Collection($resources, $this->getModel()->getSerializer())));
     }
 
     public function getAction(int $id)
     {
         $resource = $this->getModel()::findFirst($id);
 
-        return json_encode(new Document(new Resource($resource, $this->getSerializer())));
+        return json_encode(new Document(new Resource($resource, $this->getModel()->getSerializer())));
     }
 
     public function putAction(int $id) 
@@ -45,7 +38,7 @@ abstract class Controller extends PhalconController
 
         $resource = $this->getModel()::findFirst($id);
 
-        return json_encode(new Document(new Resource($resource, $this->getSerializer())));
+        return json_encode(new Document(new Resource($resource, $this->getModel()->getSerializer())));
     }
 
     public function patchAction(int $id)
@@ -54,7 +47,7 @@ abstract class Controller extends PhalconController
 
         $resource = $this->getModel()::findFirst($id);
 
-        return json_encode(new Document(new Resource($resource, $this->getSerializer())));
+        return json_encode(new Document(new Resource($resource, $this->getModel()->getSerializer())));
     }
 
     public function postAction()
