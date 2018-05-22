@@ -9,6 +9,7 @@ use Phalcon\Config;
 use Phalcon\Db\Adapter\Pdo\Factory as PdoFactory;
 
 use Levav\ResourceRouter;
+use Levav\Resource\ResourceContainer;
 use Levav\Serializer;
 
 class Kernel extends Micro 
@@ -31,10 +32,10 @@ class Kernel extends Micro
     {
         $self = $this;
 
-        $this->di = new DiFactory();
+        $this->di = new DiFactory;
 
         $this->di->set('url', function() {
-            $url = new Url();
+            $url = new Url;
             $url->setBaseUri('/api');
 
             return $url;
@@ -45,13 +46,17 @@ class Kernel extends Micro
         });
 
         $this->di->set('db', function() use ($self) {
-            return PdoFactory::load($self->config->database);
+            return PdoFactory::load($self->di->get('config')->database);
+        });
+
+        $this->di->set('resources', function() {
+            return new ResourceContainer();
         });
     }
 
     private function registerRoutes()
     {
-        $router = new ResourceRouter();
+        $router = new ResourceRouter($this->di->get('resources'));
 
         foreach ($router->getRoutes() as $collection) {
             $this->mount($collection);
@@ -61,7 +66,7 @@ class Kernel extends Micro
         $self = $this;
 
         $this->notFound(function () use ($self) {
-            $self->response->setStatusCode(404, 'Not Found');
+            $self->response->setStatusCode(404);
             $self->response->sendHeaders();
 
             $self->response->setContent('Not Found');

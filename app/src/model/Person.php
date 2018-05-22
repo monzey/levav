@@ -13,7 +13,7 @@ class Person extends Thing
 
     protected $emails;
     protected $telephones;
-    protected $homeLocation;
+    public $homeLocation;
 
     public function onConstruct()
     {

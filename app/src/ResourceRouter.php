@@ -6,6 +6,7 @@ use Phalcon\Mvc\Micro\Collection;
 
 use Levav\Controller\PersonsController;
 use Levav\Resource\Resource;
+use Levav\Resource\ResourceContainer;
 
 /**
  * Loads routes based on resources defined by Levav\Resource\Resource
@@ -18,9 +19,10 @@ class ResourceRouter
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(ResourceContainer $resources)
     {
-        $this->registerResources();
+        $this->resources = $resources;
+
         $this->registerRoutesCollections();
     }
     
@@ -34,17 +36,12 @@ class ResourceRouter
         $this->routesCollections[] = $collection;
     }
 
-    private function addResource(Resource $resource)
-    {
-        $this->resources[] = $collection;
-    }
-
     private function registerRoutesCollections()
     {
         foreach ($this->resources as $resource) {
-            $collection = new Collection();
+            $collection         = new Collection();
             $resourcePluralName = $resource->getPluralName();
-            $resourceName = $resource->getName();
+            $resourceName       = $resource->getName();
 
             $controllerName = 'Levav\Controller\\' . (new \ReflectionClass($resource))->getShortName() . 'Controller';
 
@@ -62,13 +59,5 @@ class ResourceRouter
 
             $this->addRouteCollection($collection);
         }
-    }
-
-    private function registerResources()
-    {
-        $this->resources = [
-            new \Levav\Resource\Person(),
-            new \Levav\Resource\Place(),
-        ];
     }
 }

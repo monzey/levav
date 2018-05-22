@@ -12,11 +12,11 @@ $loader->registerFiles(
 
 $loader->registerNamespaces(
     [
-        'Levav\Controller' => __DIR__ . '/src/controllers/',
-        'Levav\Resource' => __DIR__ . '/src/resources/',
-        'Levav\Model' => __DIR__ . '/src/model/',
+        'Levav\Controller'       => __DIR__ . '/src/controllers/',
+        'Levav\Resource'         => __DIR__ . '/src/resources/',
+        'Levav\Model'            => __DIR__ . '/src/model/',
         'Levav\Model\Serializer' => __DIR__ . '/src/model/serializers/',
-        'Levav' => __DIR__ . '/src/'
+        'Levav'                  => __DIR__ . '/src/'
     ]
 );
 

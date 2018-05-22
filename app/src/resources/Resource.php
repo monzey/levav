@@ -34,11 +34,34 @@ abstract class Resource
         $this->model = new $modelClassName();
     }
     
+    /**
+     * Getter for model
+     *
+     * @return Model
+     */
     public function getModel(): Model
     {
         return $this->model;
     }
+    
+    /**
+     * Setter for model
+     *
+     * @param Model $model
+     * @return Resource
+     */
+    public function setModel(Model $model): Resource
+    {
+        $this->model = $model;
+    
+        return $this;
+    }
 
+    /**
+     * Getter for serializer
+     *
+     * @return Seriliazer
+     */
     public function getSerializer(): Serializer
     {
         return $this->serializer;

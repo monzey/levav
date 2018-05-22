@@ -16,11 +16,11 @@ class PostalAddressSerializer extends AbstractSerializer
     public function getAttributes($postalAddress, array $fields = null)
     {
         return [
-            'streetAddress' => $postalAddress->getStreetAddress(),
-            'addressCountry' => $postalAddress->getAddressCountry(),
-            'addressLocality' => $postalAddress->getAddressLocality(),
-            'addressRegion' => $postalAddress->getAddressRegion(),
-            'postalCode' => $postalAddress->getPostalCode(),
+            'streetAddress'       => $postalAddress->getStreetAddress(),
+            'addressCountry'      => $postalAddress->getAddressCountry(),
+            'addressLocality'     => $postalAddress->getAddressLocality(),
+            'addressRegion'       => $postalAddress->getAddressRegion(),
+            'postalCode'          => $postalAddress->getPostalCode(),
             'postOfficeBoxNumber' => $postalAddress->getPostOfficeBoxNumber()
         ];
     }

@@ -22,8 +22,8 @@ class PersonSerializer extends AbstractSerializer
     {
         return [
             'familyName' => $person->getFamilyName(),
-            'givenName' => $person->getGivenName(),
-            'gender' => $person->getGender()
+            'givenName'  => $person->getGivenName(),
+            'gender'     => $person->getGender()
         ];
     }
 
