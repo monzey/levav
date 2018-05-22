@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9439832835901a8ab40d8e76da8085d2",
+    "content-hash": "d92dafa3fcc533836b85ae9a81201c93",
     "packages": [
+        {
+            "name": "art4/json-api-client",
+            "version": "0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Art4/json-api-client.git",
+                "reference": "b39aea2567048081c753d2cbc25e509f541248c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Art4/json-api-client/zipball/b39aea2567048081c753d2cbc25e509f541248c9",
+                "reference": "b39aea2567048081c753d2cbc25e509f541248c9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.4.3 || ^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Art4\\JsonApiClient\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL3"
+            ],
+            "authors": [
+                {
+                    "name": "Artur Weigandt",
+                    "email": "art4@wlabs.de",
+                    "homepage": "https://wlabs.de"
+                }
+            ],
+            "description": "JSON API client",
+            "homepage": "https://github.com/Art4/json-api-client",
+            "keywords": [
+                "JSON-API",
+                "api",
+                "client",
+                "json",
+                "parser",
+                "reader",
+                "validator"
+            ],
+            "time": "2017-12-21T11:44:10+00:00"
+        },
         {
             "name": "json-api-php/json-api",
             "version": "2.0.0",

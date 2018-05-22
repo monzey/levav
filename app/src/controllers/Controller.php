@@ -7,6 +7,8 @@ use Phalcon\Mvc\Model;
 use Tobscure\JsonApi\Document;
 use Tobscure\JsonApi\Collection;
 use Tobscure\JsonApi\Resource;
+use Tobscure\JsonApi\ErrorHandler;
+use Tobscure\JsonApi\Exception\Handler\FallbackExceptionHandler;
 
 abstract class Controller extends BaseController
 {
@@ -30,7 +32,7 @@ abstract class Controller extends BaseController
         $documentData;
         $serializer = $this->resource->getSerializer();
         $relationships = $serializer->getDefaultRelationships();
-        // @todo récupérer les relationships passées par la request
+        // @todo récupérer les relationships passées par la request (parameter included)
 
         if ($data instanceof \ArrayAccess) {
             $documentData = new Collection($data, $serializer); 
@@ -63,39 +65,54 @@ abstract class Controller extends BaseController
         return $this->renderSerialized($resource);
     }
 
-    public function putAction(int $id) 
-    {
-        // @todo update record
-
-        $resource = $this->getModel()::findFirst($id);
-
-        return $this->renderSerialized($resource);
-    }
-
     public function patchAction(int $id)
     {
-        // @todo update record
+        $manager = new \Art4\JsonApiClient\Utils\Manager();
+        // @todo handle validation errors
+        $document = $manager->parse($this->request->getRawBody());
+        $resource = $this->resource->getModel()::findFirst($id);
 
-        $resource = $this->getModel()::findFirst($id);
+        // basic attributes
+        foreach ($document->get('data')->get('attributes')->asArray(true) as $key => $value) {
+            $resource->{$key} = $value;
+        }
+
+        // @todo handle saving errors
+        $resource->save();
 
         return $this->renderSerialized($resource);
     }
 
     public function postAction()
     {
-        $this->resource->bind($this->request);
-        $this->resource->save();
+        $manager = new \Art4\JsonApiClient\Utils\Manager();
+        $manager->setConfig('optional_item_id', true);
+        // @todo handle validation errors
+        $document = $manager->parse($this->request->getRawBody());
+        $resource = $this->resource->getModel();
 
-        return $this->renderSerialized($this->resource->getModel());
+        // basic attributes
+        foreach ($document->get('data')->get('attributes')->asArray(true) as $key => $value) {
+            $resource->{$key} = $value;
+        }
+
+        // @todo handle saving errors
+        $resource->save();
+
+        return $this->renderSerialized($resource);
     }
 
     public function deleteAction(int $id)
     {
+        $resource = $this->resource->getModel()::findFirst($id);
+        $resource->delete();
 
+        $this->response->setStatusCode(204);
+        $this->response->send();
     }
 
     public function optionsAction()
     {
-        return ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'];
+        return ['GET', 'POST', 'PATCH', 'DELETE'];
     }
 }

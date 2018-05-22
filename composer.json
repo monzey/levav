@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": ">=7.2",
-        "tobscure/json-api": "^0.4.1"
+        "tobscure/json-api": "^0.4.1",
+        "art4/json-api-client": "^0.9.1"
     }
 }

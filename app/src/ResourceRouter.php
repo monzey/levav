@@ -57,7 +57,6 @@ class ResourceRouter
             $collection->get('/', 'cGetAction');
             $collection->get('/{id}', 'getAction');
             $collection->post('/', 'postAction');
-            $collection->put('/{id}', 'putAction');
             $collection->patch('/{id}', 'patchAction');
             $collection->delete('/{id}', 'deleteAction');
 

@@ -44,21 +44,6 @@ abstract class Resource
         return $this->serializer;
     }
 
-    public function bind(Request $request)
-    {
-        $fields = $request->getJsonRawBody();
-
-        var_dump($fields);
-
-        foreach ($fields as $field => $value) {
-            $method = 'set' . ucfirst($field);
-
-            if (is_callable([$this->model, $method], true)) {
-                $this->model->$method($value);
-            }
-        }
-    }
-
     public function save()
     {
         return $this->model->save();
